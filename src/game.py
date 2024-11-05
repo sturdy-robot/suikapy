@@ -23,7 +23,7 @@ class FruitType(Enum):
 
 
 FRUITS = {
-    FruitType.CHERRY: ("blue4", 20),
+    FruitType.CHERRY: ("mediumblue", 20),
     FruitType.STRAWBERRY: ("brown1", 30),
     FruitType.ORANGE: ("darkorange", 40),
     FruitType.LEMON: ("darkolivegreen3", 50),
@@ -76,7 +76,8 @@ class Container(pygame.sprite.Sprite):
 
     def draw(self):
         display = pygame.display.get_surface()
-        pygame.draw.rect(display, "black", self.rect)
+        pygame.draw.rect(display, "gray66", self.rect)
+        pygame.draw.rect(display, "black", self.rect, width=3)
 
 
 class Fruit(pygame.sprite.Sprite):
@@ -280,17 +281,18 @@ class Game:
         radius = 20
         fruit_rect = pygame.Rect(0, 0, radius, radius)
         fruit_rect.topright = next_fruit_rect.topright
-        fruit_rect.centerx -= int(next_fruit_rect.width / 2) + radius
-        fruit_rect.centery += radius
+        fruit_rect.centerx -= 2* radius + 10
+        fruit_rect.centery += 2 * radius + 10
         next_fruit_rect.centerx = fruit_rect.x
         next_fruit_rect.centerx -= fruit_rect.width + 2 * radius 
+        next_fruit_rect.centery = fruit_rect.centery - 5
         self.window.blit(next_fruit_text, next_fruit_rect)
         
         pygame.draw.circle(self.window, FRUITS[self.next_fruit][0], fruit_rect.center, radius)
         pygame.draw.circle(self.window, "black", fruit_rect.center, radius, width=3)
 
     def draw(self):
-        self.window.fill("white")
+        self.window.fill("moccasin")
         self.container.draw()
         self.draw_score()
         self.draw_next_fruit()
